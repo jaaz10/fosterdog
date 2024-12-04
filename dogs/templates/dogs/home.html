@@ -31,14 +31,16 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container mt-4">
     <h2 class="text-center mb-4">Recently Added Dogs</h2>
-    <div class="row">
-        {% if not dogs %}
+    
+    {% if not recent_dogs %}
     <div class="alert alert-info text-center">
         No dogs are currently available for fostering. Please check back later!
     </div>
     {% endif %}
+    
+    <div class="row">
         {% for dog in recent_dogs %}
         <div class="col-md-4 mb-4">
             <div class="card dog-card">
@@ -49,6 +51,16 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ dog.name }}</h5>
+                    {% if dog.breed or dog.age or dog.gender or dog.size %}
+                    <div class="mb-2">
+                        {% if dog.size %}<span class="badge bg-primary">{{ dog.get_size_display }} Size</span>{% endif %}
+                        {% if dog.gender %}<span class="badge bg-info">{{ dog.get_gender_display }}</span>{% endif %}
+                    </div>
+                    <p class="card-text">
+                        {% if dog.breed %}<strong>Breed:</strong> {{ dog.breed }}<br>{% endif %}
+                        {% if dog.age %}<strong>Age:</strong> {{ dog.age }} {% if dog.age == 1 %}year{% else %}years{% endif %}<br>{% endif %}
+                    </p>
+                    {% endif %}
                     <p class="card-text">{{ dog.description|truncatewords:30 }}</p>
                 </div>
                 <div class="card-footer text-center">
