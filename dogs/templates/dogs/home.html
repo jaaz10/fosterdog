@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Welcome to DogFoster{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <h1 class="display-3">Welcome to DogFoster</h1>
+                <p class="lead">Help make a difference in a dog's life by becoming a foster parent</p>
+                <a href="{% url 'dogs:dog_list' %}" class="btn btn-light btn-lg mt-3">View Available Dogs</a>
+            </div>
+            <div class="col-md-6">
+                <div class="upload-form-container">
+                    <h3 class="text-dark text-center mb-4">Know a Dog That Needs a Home?</h3>
+                    <form method="post" enctype="multipart/form-data" class="mb-3">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <img class="upload-preview img-fluid rounded" alt="Upload preview">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-upload me-2"></i>Submit Dog
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="text-center mb-4">Recently Added Dogs</h2>
+    <div class="row">
+        {% if not dogs %}
+    <div class="alert alert-info text-center">
+        No dogs are currently available for fostering. Please check back later!
+    </div>
+    {% endif %}
+        {% for dog in recent_dogs %}
+        <div class="col-md-4 mb-4">
+            <div class="card dog-card">
+                {% if dog.photo %}
+                <img src="{{ dog.photo.url }}" class="card-img-top" alt="{{ dog.name }}">
+                {% else %}
+                <img src="https://via.placeholder.com/300x200.png?text=No+Photo" class="card-img-top" alt="No photo available">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ dog.name }}</h5>
+                    <p class="card-text">{{ dog.description|truncatewords:30 }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <button class="btn btn-primary" onclick="alert('Contact form coming soon!')">Foster {{ dog.name }}</button>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'dogs:edit_dog' dog.pk %}" class="btn btn-secondary">Edit</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

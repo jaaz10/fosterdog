@@ -1,0 +1,1 @@
+web: gunicorn dogfoster.wsg
