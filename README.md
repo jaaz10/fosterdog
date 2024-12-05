@@ -1,28 +1,35 @@
 # DogFoster
 
-DogFoster is a web application built with Django that connects rescue dogs with potential foster families. The platform allows users to browse available dogs, submit dogs that need fostering, and manage dog listings.
+A simple Django practice project for connecting rescue dogs with foster families. This was used as a learning playground for Django, Python, and web development concepts.
 
-## Features
+## Note: This Project is Deprecated
+This repository is no longer maintained and was used purely for learning purposes. It served as a testing ground for:
+- Django basics
+- Database modeling
+- User authentication
+- Form handling
+- Bootstrap integration
+- Image uploads with Pillow
 
-- Browse dogs available for fostering
-- Quick submission form for adding new dogs
-- Detailed dog profiles with photos and information
-- User authentication system
-- Admin dashboard to manage dog listings
-- Responsive design for mobile and desktop
-
-## Tech Stack
-
+## Tech Stack Used
 - Python 3.x
-- Django 4.x
+- Django 4.x 
 - Bootstrap 5
-- SQLite (default database)
+- SQLite
 - Crispy Forms
-- Pillow for image handling
+- Pillow
 
-## Installation
+## Features Implemented
+- Dog listings with photos
+- Basic user authentication
+- Admin dashboard
+- Foster application form
+- Responsive design
 
-1. Clone the repository
+## Local Setup
 ```bash
-git clone https://github.com/yourusername/dogfoster.git
-cd dogfoster
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
